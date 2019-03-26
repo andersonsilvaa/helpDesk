@@ -17,7 +17,7 @@ export class UserService {
 
   // Método responsável por criar ou atualizar um usuário no sistema
   createOrUpdate(user:User){
-    if(user.id!=null && user.id == ""){
+    if(user.id!=null && user.id != ""){
       return this.http.put(`${HELP_DESK_API}/api/user`, user);
     }else{
       user.id = null;

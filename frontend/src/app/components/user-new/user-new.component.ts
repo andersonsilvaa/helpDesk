@@ -39,6 +39,7 @@ export class UserNewComponent implements OnInit {
     this.userService.findById(id).subscribe((responseApi: ResponseApi) => {
       this.user = responseApi.data;
       this.user.password = '';
+      this.user.profile = this.buscarPerfilDoUsuario(this.user);
     }, error => {
       this.showMessage({
         type: 'error',
@@ -49,6 +50,7 @@ export class UserNewComponent implements OnInit {
   
   registrar(){
     this.message = {};
+    this.user.profile = this.getPerfilDoUsuario(this.user);
     this.userService.createOrUpdate(this.user).subscribe((responseApi: ResponseApi) => {
       this.user = new User('','','','');
       let userRet : User = responseApi.data;
@@ -63,6 +65,34 @@ export class UserNewComponent implements OnInit {
         text: error['error']['errors'][0]
       });
     });
+  }
+
+  private buscarPerfilDoUsuario(user:User): string {
+    switch(user.profile){
+      case 'ROLE_ADMIN':
+        return 'Administrador';
+        break;
+      case 'ROLE_CUSTOMER':
+        return 'Usuário';
+        break;
+      case 'ROLE_TECHNICIAN':
+        return 'Técnico';
+        break;
+    }
+  }
+
+  private getPerfilDoUsuario(user:User): string {
+    switch(user.profile){
+      case 'Administrador':
+        return 'ROLE_ADMIN';
+        break;
+      case 'Usuário':
+        return 'ROLE_CUSTOMER';
+        break;
+      case 'Técnico':
+        return 'ROLE_TECHNICIAN';
+        break;
+    }
   }
 
   private showMessage(message: {type: string, text: string}): void {
