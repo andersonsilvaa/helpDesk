@@ -1,3 +1,4 @@
+import { TicketNewComponent } from './components/ticket-new/ticket-new.component';
 import { UserNewComponent } from './components/user-new/user-new.component';
 import { AuthGuard } from './components/security/auth.guard';
 import { LoginComponent } from './components/security/login/login.component';
@@ -12,6 +13,7 @@ export const ROUTES: Routes = [
     { path: 'user-new', component: UserNewComponent, canActivate: [AuthGuard]},
     { path: 'user-new/:id', component: UserNewComponent, canActivate: [AuthGuard]},
     { path: 'user-list', component: UserListComponent, canActivate: [AuthGuard]},
+    { path: 'ticket-new', component: TicketNewComponent, canActivate: [AuthGuard]}
 ]
 
 export const routes: ModuleWithProviders = RouterModule.forRoot(ROUTES);

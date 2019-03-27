@@ -12,7 +12,7 @@ export class TicketService {
 
   // Método responsável por adicionar e alterar um ticket do usuário logado
   createOrUpdate(ticket: Ticket){
-    if(ticket.id!=null && ticket.id == ''){
+    if(ticket.id!=null && ticket.id != ''){
       return this.http.put(`${HELP_DESK_API}/api/ticket`, ticket);
     }else{
       ticket.id = null;
