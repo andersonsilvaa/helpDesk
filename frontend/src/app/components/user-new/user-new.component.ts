@@ -1,3 +1,4 @@
+import { AbstractComponent } from './../../abstractComponent';
 import { UserService } from './../../services/user/user.service';
 import { SharedService } from './../../services/shared.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -11,20 +12,19 @@ import { ResponseApi } from 'src/app/model/response-api';
   templateUrl: './user-new.component.html',
   styleUrls: ['./user-new.component.css']
 })
-export class UserNewComponent implements OnInit {
+export class UserNewComponent extends AbstractComponent implements OnInit {
 
   @ViewChild("form")
   form: NgForm
 
   user = new User('','','','');
   shared : SharedService;
-  message  : {};
-  classCss : {};
 
   constructor(
     private userService: UserService,
     private route: ActivatedRoute
   ) { 
+    super();
     this.shared = SharedService.getInstance();
   }
 
@@ -93,21 +93,6 @@ export class UserNewComponent implements OnInit {
         return 'ROLE_TECHNICIAN';
         break;
     }
-  }
-
-  private showMessage(message: {type: string, text: string}): void {
-    this.message = message;
-    this.buildClasses(message.type);
-    setTimeout(() => {
-      this.message = undefined;
-    }, 3000);
-  }
-
-  private buildClasses(type: string): void {
-    this.classCss = {
-      'alert':true
-    }
-    this.classCss['alert-'+type] = true;
   }
 
   getFromGroupClass(isInvalid: boolean, isDirty): {} {

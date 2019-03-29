@@ -22,7 +22,7 @@
         </a>
         <ul class="treeview-menu">
           <li><a [routerLink]="['/ticket-list']"><i class="fa fa-list-alt"></i> Lista de ticket</a></li>
-          <li *ngIf="shared.user.profile != 'CUSTOMER'"><a [routerLink]="['/ticket-new']"><i class="fa fa-plus"></i> Adicionar novo ticket</a></li>
+          <li *ngIf="shared.user.profile == 'CUSTOMER'"><a [routerLink]="['/ticket-new']"><i class="fa fa-plus"></i> Adicionar novo ticket</a></li>
         </ul>
       </li>
       <li class="treeview">

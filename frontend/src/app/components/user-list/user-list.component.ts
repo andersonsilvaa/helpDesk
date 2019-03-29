@@ -1,3 +1,4 @@
+import { AbstractComponent } from './../../abstractComponent';
 import { UserService } from './../../services/user/user.service';
 import { DialogService } from './../../dialog.service';
 import { SharedService } from 'src/app/services/shared.service';
@@ -11,14 +12,12 @@ import { ResponseApi } from 'src/app/model/response-api';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent extends AbstractComponent implements OnInit {
 
   page: number=0;
   count: number=5;
   pages: Array<number>;
   shared: SharedService;
-  message: {};
-  classCss: {};
   listUser= [];
 
   constructor(
@@ -26,6 +25,7 @@ export class UserListComponent implements OnInit {
     private userService: UserService,
     private router: Router
   ) { 
+    super();
     this.shared = SharedService.getInstance();
   }
 
@@ -90,21 +90,6 @@ export class UserListComponent implements OnInit {
         text: error['error']['errors'][0]
       });
     });
-  }
-
-  private showMessage(message: {type: string, text: string}): void {
-    this.message = message;
-    this.buildClasses(message.type);
-    setTimeout(() => {
-      this.message = undefined;
-    }, 3000);
-  }
-
-  private buildClasses(type: string): void {
-    this.classCss = {
-      'alert':true
-    }
-    this.classCss['alert-'+type] = true;
   }
 
 }

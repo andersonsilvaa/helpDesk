@@ -1,3 +1,4 @@
+import { AbstractComponent } from './../../abstractComponent';
 import { TicketService } from './../../services/ticket/ticket.service';
 import { ActivatedRoute } from '@angular/router';
 import { SharedService } from 'src/app/services/shared.service';
@@ -11,7 +12,7 @@ import { ResponseApi } from 'src/app/model/response-api';
   templateUrl: './ticket-new.component.html',
   styleUrls: ['./ticket-new.component.css']
 })
-export class TicketNewComponent implements OnInit {
+export class TicketNewComponent extends AbstractComponent implements OnInit {
 
   @ViewChild('form')
   form: NgForm
@@ -25,6 +26,7 @@ export class TicketNewComponent implements OnInit {
     private ticketService: TicketService,
     private route: ActivatedRoute
   ) { 
+    super();
     this.shared = SharedService.getInstance();
   }
 
@@ -64,7 +66,7 @@ export class TicketNewComponent implements OnInit {
     });
   }
 
-  onConverteImagemParaByte(event): void {
+  onConverteImagemParaByte(event:any): void {
     if(event.target.files[0].size > 2000000){
       this.showMessage({
         type: 'error',
@@ -78,21 +80,6 @@ export class TicketNewComponent implements OnInit {
       }
       reader.readAsDataURL(event.target.files[0]);
     }
-  }
-
-  private showMessage(message: {type: string, text: string}): void {
-    this.message = message;
-    this.buildClasses(message.type);
-    setTimeout(() => {
-      this.message = undefined;
-    }, 3000);
-  }
-
-  private buildClasses(type: string): void {
-    this.classCss = {
-      'alert':true
-    }
-    this.classCss['alert-'+type] = true;
   }
 
   getFromGroupClass(isInvalid: boolean, isDirty): {} {
