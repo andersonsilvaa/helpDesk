@@ -40,8 +40,8 @@ public class TicketServiceImpl implements TicketService {
 		return this.ticketRepository.findAll(pages);
 	}
 	
-	public Iterable<Ticket> findAll() {
-		return this.ticketRepository.findAll();
+	public Iterable<Ticket> findAll(String userId) {
+		return this.ticketRepository.findByUserId(userId);
 	}
 	
 	public Page<Ticket> findByCurrentUser(int page, int count, String userId) {

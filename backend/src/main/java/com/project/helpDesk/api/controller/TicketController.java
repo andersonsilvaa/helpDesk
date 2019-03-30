@@ -269,7 +269,7 @@ public class TicketController {
 	}
 	
 	@GetMapping(value = "/summary")
-	public ResponseEntity<Response<Summary>> findChart() {
+	public ResponseEntity<Response<Summary>> findChart(HttpServletRequest request) {
 		Response<Summary> response = new Response<Summary>();
 		Summary chart = new Summary();
 		int quantidadeNovo = 0;
@@ -278,7 +278,8 @@ public class TicketController {
 		int quantidadeReprovado = 0;
 		int quantidadeAtribuido = 0;
 		int quantidadeFechado = 0;
-		Iterable<Ticket> tickets = ticketService.findAll();
+		User userRequest = userFromRequest(request);
+		Iterable<Ticket> tickets = ticketService.findAll(userRequest.getId());
 		if (tickets != null) {
 			for (Iterator<Ticket> iterator = tickets.iterator(); iterator.hasNext();) {
 				Ticket ticket = iterator.next();
