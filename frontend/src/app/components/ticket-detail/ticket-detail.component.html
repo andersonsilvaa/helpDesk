@@ -26,7 +26,7 @@
               <span class="pull-right"><b>Descrição: </b><span>{{ticket.description}}</span></span>
           </li>
           <li class="list-group-item">
-              <span><img [src]="ticket.imagem" width="450px" height="370px"></span>
+              <span><img [src]="ticket.imagem" width="200px" height="200px"></span>
               <span class="pull-right">
                 <table class="table table-bordered">
                   <tr>
@@ -43,6 +43,23 @@
               </span>
           </li>
         </ul>
+      </div>
+      <div class="box-footer">
+        <button *ngIf="shared.user.profile =='TECHNICIAN' && ticket.status == 'Novo'"
+            class="btn btn-primary" 
+            (click)="changeStatus('Atribuido')">Aceitar</button>
+        <button *ngIf="shared.user.profile =='TECHNICIAN' && (ticket.status == 'Atribuido' || ticket.status == 'Reprovado')"
+            class="btn btn-primary" 
+            (click)="changeStatus('Resolvido')">Resolver</button>
+        <button *ngIf="shared.user.profile =='CUSTOMER' && ticket.status == 'Resolvido'"
+            class="btn btn-primary" 
+            (click)="changeStatus('Aprovado')">Aprovar</button>
+        <button *ngIf="shared.user.profile =='CUSTOMER' && ticket.status == 'Resolvido'"
+            class="btn btn-primary" 
+            (click)="changeStatus('Reprovado')">Reprovar</button>
+        <button *ngIf="shared.user.profile =='TECHNICIAN' && ticket.status == 'Aprovado'"
+            class="btn btn-primary" 
+            (click)="changeStatus('Fechado')">Fechar</button>
       </div>
     </form>
   </div>

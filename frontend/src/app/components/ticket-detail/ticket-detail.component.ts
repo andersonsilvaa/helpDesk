@@ -49,7 +49,7 @@ export class TicketDetailComponent extends AbstractComponent implements OnInit {
   changeStatus(status:string): void{
     this.ticketService.changeStatus(status, this.ticket).subscribe((responseApi: ResponseApi) => {
       this.ticket = responseApi.data;
-      this.ticket.data = new Date(this.ticket.data).toISOString();
+      this.ticket.data = new Date(this.ticket.data).toDateString();
       this.showMessage({
         type: 'success',
         text: 'Status modificado com sucesso'
