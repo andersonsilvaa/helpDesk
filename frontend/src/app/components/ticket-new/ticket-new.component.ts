@@ -66,7 +66,7 @@ export class TicketNewComponent extends AbstractComponent implements OnInit {
     });
   }
 
-  onConverteImagemParaByte(event:any): void {
+  onConverteImagemParaByte(event): void {
     if(event.target.files[0].size > 2000000){
       this.showMessage({
         type: 'error',
@@ -76,7 +76,7 @@ export class TicketNewComponent extends AbstractComponent implements OnInit {
       this.ticket.imagem = '';
       var reader = new FileReader();
       reader.onloadend = (e: Event) => {
-        this.ticket.imagem = reader.result.toString();
+        this.ticket.imagem = reader.result as string;
       }
       reader.readAsDataURL(event.target.files[0]);
     }
